@@ -6,7 +6,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends gi
     gcc g++ cmake pkgconf 
 ENV SPACK_DIR /software/spack
 ENV PROJECT_DIR /code
-RUN RUN ln -s /com.docker.devenvironments.code ${PROJECT_DIR}
+RUN ln -s /com.docker.devenvironments.code ${PROJECT_DIR}
 RUN mkdir -p ${SPACK_DIR}
 RUN git clone https://github.com/spack/spack.git ${SPACK_DIR}
 RUN ${SPACK_DIR}/share/spack/setup-env.sh

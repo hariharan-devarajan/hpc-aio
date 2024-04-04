@@ -12,4 +12,5 @@ RUN git clone https://github.com/spack/spack.git ${SPACK_DIR}
 RUN sh ${SPACK_DIR}/share/spack/setup-env.sh
 ENV PATH="${PATH}:${SPACK_DIR}/bin"
 RUN spack install --sh libuv@1.46.0 ucx@1.15.0
+RUN ls /mount
 ENTRYPOINT /bin/bash

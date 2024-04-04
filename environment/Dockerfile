@@ -1,6 +1,8 @@
-FROM ubuntu:24.04 as build
+FROM ubuntu:24.04 as base 
+ENV DEBIAN_FRONTEND noninteractive
 RUN apt update 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends git python3 \
+# Install dependencies
+RUN apt-get install -y --no-install-recommends git python3 \
     python3-pip openmpi-bin \
     openmpi-common libopenmpi-dev \
     gcc g++ cmake build-essential glibc-source \
@@ -8,7 +10,19 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends gi
     openssh-client openssh-server 
 RUN mkdir -p -m 0600 ~/.ssh && \
     ssh-keyscan -H github.com >> ~/.ssh/known_hosts
-RUN service ssh restart
+
+# Setup SSH
+EXPOSE 22
+RUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo -u 1000 ubuntu
+RUN  echo 'ubuntu:ubuntu' | chpasswd
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> \ /etc/sudoers
+RUN mkdir /home/ubuntu/.ssh
+RUN service ssh start
+CMD ["/usr/sbin/sshd","-D"]
+
+# Master
+FROM base AS master
+# Setup spack
 ENV SHARED=/mount/shared
 ENV SOFTWARE=${SHARED}/software
 ENV SPACK_DIR=${SOFTWARE}/spack
@@ -20,5 +34,9 @@ RUN sh ${SPACK_DIR}/share/spack/setup-env.sh
 ENV PATH="${PATH}:${SPACK_DIR}/bin"
 RUN spack install --sh libuv@1.46.0 ucx@1.15.0
 RUN ls /mount
-EXPOSE 22
+ENTRYPOINT /bin/bash
+
+# worker
+FROM base AS worker
+RUN ls /mount
 ENTRYPOINT /bin/bash

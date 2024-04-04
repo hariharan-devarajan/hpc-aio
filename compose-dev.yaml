@@ -7,8 +7,8 @@ services:
       - sleep
       - infinity
     build:
-      context: environment/master
-      target: build
+      context: environment
+      target: master
     init: true
     volumes:
       - shared:/mount/shared
@@ -21,8 +21,8 @@ services:
       - sleep
       - infinity
     build:
-      context: environment/worker
-      target: build
+      context: environment
+      target: worker
     init: true
     volumes:
       - shared:/mount/shared

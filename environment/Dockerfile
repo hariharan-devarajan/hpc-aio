@@ -1,6 +1,6 @@
 FROM ubuntu:24.04 as build
 RUN apt update 
-RUN apt-get install -y git python3 \
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends git python3 \
     python3-pip openmpi-bin \
     openmpi-common libopenmpi-dev \
     gcc g++ cmake pkgconf 

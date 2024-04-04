@@ -14,4 +14,4 @@ services:
 node2:
     <<: &app
 volumes:
-  shared:
+  shared: {}

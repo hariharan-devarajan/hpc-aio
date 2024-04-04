@@ -16,6 +16,4 @@ source ${SPACK_DIR}/share/spack/setup-env.sh
 
 echo Setting up development environment
 spack env activate -p ${PROJECT_DIR}/environment
-
-echo Showing current state of packages
-spack find
+spack install

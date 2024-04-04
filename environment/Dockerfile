@@ -9,7 +9,7 @@ ENV SPACK_DIR /software/spack
 ENV PROJECT_DIR /code
 RUN mkdir -p ${SPACK_DIR}
 RUN git clone https://github.com/spack/spack.git ${SPACK_DIR}
-RUN source ${SPACK_DIR}/share/spack/setup-env.sh
+RUN sh ${SPACK_DIR}/share/spack/setup-env.sh
 ENV PATH="${PATH}:${SPACK_DIR}/bin"
 RUN spack install --sh libuv@1.46.0 ucx@1.15.0
 ENTRYPOINT /bin/bash

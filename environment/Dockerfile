@@ -10,5 +10,6 @@ RUN mkdir -p ${SPACK_DIR}
 RUN git clone https://github.com/spack/spack.git ${SPACK_DIR}
 RUN ${SPACK_DIR}/share/spack/setup-env.sh
 ENV PATH="${PATH}:${SPACK_DIR}/bin"
+RUN ls 
 RUN spack env activate --sh -p ${PROJECT_DIR}/environment && spack install
 ENTRYPOINT /bin/bash

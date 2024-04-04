@@ -11,9 +11,15 @@ services:
     init: true
     volumes:
       - shared:/mount/shared
+    ports:
+      - 80:80
+      - 22:22
   node2:
     <<: *app
     volumes:
       - shared:/mount/shared
+    ports:
+      - 80:80
+      - 22:22
 volumes:
   shared:

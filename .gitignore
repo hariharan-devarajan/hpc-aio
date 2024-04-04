@@ -30,3 +30,13 @@
 *.exe
 *.out
 *.app
+
+# Spack
+.spack-env
+spack.lock
+
+# CMake
+build
+
+# vscode
+.vscode

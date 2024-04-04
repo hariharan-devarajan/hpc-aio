@@ -6,81 +6,82 @@ spack:
   # add package specs to the `specs` list
   specs:
   - libuv@1.46.0
-  view: /com.docker.devenvironments.code/install
+  - ucx@1.15.0
+  view: /install
   concretizer:
-    unify: true
+    unify: false
   packages:
-    autoconf:
+    findutils:
       externals:
-      - spec: autoconf@2.71
-        prefix: /usr
-    git:
-      externals:
-      - spec: git@2.43.0~tcltk
-        prefix: /usr
-    cmake:
-      externals:
-      - spec: cmake@3.28.3
-        prefix: /usr
-    python:
-      externals:
-      - spec: python@3.12.2+bz2+crypt+ctypes+dbm+lzma+nis+pyexpat~pythoncmd+readline+sqlite3+ssl~tkinter+uuid+zlib
-        prefix: /usr
-    sed:
-      externals:
-      - spec: sed@4.9
-        prefix: /usr
-    binutils:
-      externals:
-      - spec: binutils@2.42
-        prefix: /usr
-    tar:
-      externals:
-      - spec: tar@1.35
-        prefix: /usr
-    automake:
-      externals:
-      - spec: automake@1.16.5
-        prefix: /usr
-    coreutils:
-      externals:
-      - spec: coreutils@9.4
-        prefix: /usr
-    m4:
-      externals:
-      - spec: m4@1.4.19
+      - spec: findutils@4.9.0
         prefix: /usr
     pkgconf:
       externals:
       - spec: pkgconf@1.8.1
         prefix: /usr
-    diffutils:
+    coreutils:
       externals:
-      - spec: diffutils@3.10
+      - spec: coreutils@9.4
         prefix: /usr
-    libtool:
+    openssl:
       externals:
-      - spec: libtool@2.4.7
+      - spec: openssl@3.0.10
         prefix: /usr
-    openssh:
+    sed:
       externals:
-      - spec: openssh@9.6p1
+      - spec: sed@4.9
         prefix: /usr
-    findutils:
+    git:
       externals:
-      - spec: findutils@4.9.0
+      - spec: git@2.43.0~tcltk
+        prefix: /usr
+    tar:
+      externals:
+      - spec: tar@1.35
         prefix: /usr
     perl:
       externals:
       - spec: perl@5.38.2~cpanm+opcode+open+shared+threads
         prefix: /usr
+    m4:
+      externals:
+      - spec: m4@1.4.19
+        prefix: /usr
+    automake:
+      externals:
+      - spec: automake@1.16.5
+        prefix: /usr
+    binutils:
+      externals:
+      - spec: binutils@2.42
+        prefix: /usr
+    openssh:
+      externals:
+      - spec: openssh@9.6p1
+        prefix: /usr
+    python:
+      externals:
+      - spec: python@3.12.2+bz2+crypt+ctypes+dbm+lzma+nis+pyexpat~pythoncmd+readline+sqlite3+ssl~tkinter+uuid+zlib
+        prefix: /usr
+    diffutils:
+      externals:
+      - spec: diffutils@3.10
+        prefix: /usr
+    autoconf:
+      externals:
+      - spec: autoconf@2.71
+        prefix: /usr
+    cmake:
+      externals:
+      - spec: cmake@3.28.3
+        prefix: /usr
+    libtool:
+      externals:
+      - spec: libtool@2.4.7
+        prefix: /usr
     gmake:
       externals:
       - spec: gmake@4.3
-        prefix: /usr
-    openssl:
-      externals:
-      - spec: openssl@3.0.10
         prefix: /usr
   compilers:
   - compiler:

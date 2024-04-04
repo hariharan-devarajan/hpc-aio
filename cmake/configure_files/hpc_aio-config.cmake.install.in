@@ -1,0 +1,61 @@
+# This will create IMPORTED targets for HPC_AIO. The executables will be
+# HPC_AIO::<exe-name>-bin (e.g., HPC_AIO::hpc_aio-bin) and the library will
+# be HPC_AIO::hpc_aio.
+
+include("${CMAKE_CURRENT_LIST_DIR}/HPC_AIOConfigVersion.cmake")
+
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/modules")
+list(APPEND CMAKE_MODULE_PATH "@EXTRA_CMAKE_MODULE_DIR@")
+
+#include(GNUInstallDirs)
+include(ExternalProject)
+include(HPC_AIOCMakeUtilities)
+include(CMakePackageConfigHelpers)
+
+
+set(HPC_AIO_VERSION ${PACKAGE_VERSION})
+
+# Record compiler information
+set(HPC_AIO_C_COMPILER "@CMAKE_C_COMPILER@")
+set(HPC_AIO_CXX_COMPILER "@CMAKE_CXX_COMPILER@")
+
+set(HPC_AIO_C_FLAGS "@CMAKE_C_FLAGS@")
+set(HPC_AIO_CXX_FLAGS "@CMAKE_CXX_FLAGS@")
+
+set(HPC_AIO_C_STANDARD "@CMAKE_C_STANDARD@")
+set(HPC_AIO_CXX_STANDARD "@CMAKE_CXX_STANDARD@")
+
+set(CMAKE_C_STANDARD_REQUIRED TRUE)
+set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
+
+# Record the various flags and switches accumlated in HPC_AIO
+set(HPC_AIO_GNU_LINUX @HPC_AIO_GNU_LINUX@)
+set(HPC_AIO_HAS_STD_FILESYSTEM @HPC_AIO_HAS_STD_FILESYSTEM@)
+set(HPC_AIO_HAS_STD_FSTREAM_FD @HPC_AIO_HAS_STD_FSTREAM_FD@)
+
+# Setup dependencies
+
+
+@PACKAGE_INIT@
+
+# Now actually import the HPC_AIO target
+set(_TMP_INCLUDE_DIRS "@PACKAGE_INCLUDE_INSTALL_DIRS@")
+foreach (_DIR ${_TMP_INCLUDE_DIRS})
+  set_and_check(_INCLUDE_DIR "${_DIR}")
+  list(APPEND HPC_AIO_INCLUDE_DIRS "${_INCLUDE_DIR}")
+endforeach (_DIR "${_TMP_INCLUDE_DIRS}")
+
+set(_TMP_LIBRARY_DIRS "@PACKAGE_LIB_INSTALL_DIR@")
+foreach (_DIR ${_TMP_LIBRARY_DIRS})
+  set_and_check(_LIBRARY_DIR "${_DIR}")
+  list(APPEND HPC_AIO_LIBRARY_DIRS "${_LIBRARY_DIR}")
+endforeach (_DIR ${_TMP_LIBRARY_DIRS})
+
+if (NOT TARGET HPC_AIO::hpc_aio)
+  include(${CMAKE_CURRENT_LIST_DIR}/HPC_AIOTargets.cmake)
+endif (NOT TARGET HPC_AIO::hpc_aio)
+
+check_required_components(HPC_AIO)
+
+set(HPC_AIO_LIBRARIES HPC_AIO::hpc_aio)

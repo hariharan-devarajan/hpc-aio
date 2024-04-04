@@ -7,7 +7,7 @@ spack:
   specs:
   - libuv@1.46.0
   - ucx@1.15.0
-  view: /install
+  view: /mount/shared/install
   concretizer:
     unify: false
   packages:

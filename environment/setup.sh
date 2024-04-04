@@ -3,14 +3,13 @@
 echo Setting ENV Variables
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 export MAIN_PROJECT_DIR=`dirname $SCRIPT_DIR`
-export PROJECT_DIR=/code
-export INSTALL_DIR=/install
+echo "MAIN_PROJECT_DIR $MAIN_PROJECT_DIR"
+export PROJECT_DIR=/mount/shared/code
+export SPACK_DIR=/mount/shared/software/spack
+export INSTALL_DIR=/mount/shared/install
 export PATH=$PATH:$INSTALL_DIR/bin
-
-echo Setting up Project
-rm ${PROJECT_DIR}
-ln -s ${MAIN_PROJECT_DIR} ${PROJECT_DIR}
-
+export OMPI_ALLOW_RUN_AS_ROOT=1
+export OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
 echo Setting up spack
 source ${SPACK_DIR}/share/spack/setup-env.sh
 

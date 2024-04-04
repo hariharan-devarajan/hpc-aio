@@ -7,28 +7,31 @@ RUN apt-get install -y --no-install-recommends git python3 \
     openmpi-common libopenmpi-dev \
     gcc g++ cmake build-essential glibc-source \
     pkgconf autoconf automake libtool libtool-bin make \
-    openssh-client openssh-server 
+    openssh-client openssh-server nmap iproute2
 RUN mkdir -p -m 0600 ~/.ssh && \
     ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 
 # Setup SSH
 EXPOSE 22
-ENV USERNAME=haridev
+ENV USERNAME=root
 RUN mkdir /var/run/sshd
 RUN echo 'root:root' | chpasswd
-RUN useradd -m test
-RUN passwd -d test
+RUN passwd -d ${USERNAME}
 RUN sed -i'' -e's/^#PermitRootLogin prohibit-password$/PermitRootLogin yes/' /etc/ssh/sshd_config \
-        && sed -i'' -e's/^#PasswordAuthentication yes$/PasswordAuthentication yes/' /etc/ssh/sshd_config \
-        && sed -i'' -e's/^#PermitEmptyPasswords no$/PermitEmptyPasswords yes/' /etc/ssh/sshd_config \
-        && sed -i'' -e's/^UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
+    && sed -i'' -e's/^#PasswordAuthentication yes$/PasswordAuthentication yes/' /etc/ssh/sshd_config \
+    && sed -i'' -e's/^#PermitEmptyPasswords no$/PermitEmptyPasswords yes/' /etc/ssh/sshd_config \
+    && sed -i'' -e's/^UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
 EXPOSE 22
-CMD ["/usr/sbin/sshd", "-D"]
 
 # Master
 FROM base AS master
 # Setup spack
+
 ENV SHARED=/mount/shared
+RUN mkdir -p $SHARED
+RUN chown ${USERNAME} ${SHARED}
+RUN chmod +rw ${SHARED} -R
+USER ${USERNAME}
 ENV SOFTWARE=${SHARED}/software
 ENV SPACK_DIR=${SOFTWARE}/spack
 ENV PROJECT_DIR ${SHARED}/code
@@ -38,10 +41,8 @@ RUN git clone https://github.com/spack/spack.git ${SPACK_DIR}
 RUN sh ${SPACK_DIR}/share/spack/setup-env.sh
 ENV PATH="${PATH}:${SPACK_DIR}/bin"
 RUN spack install --sh libuv@1.46.0 ucx@1.15.0
-RUN ls /mount
-ENTRYPOINT /bin/bash
+ENTRYPOINT service ssh restart && bash
 
 # worker
 FROM base AS worker
-RUN ls /mount
-ENTRYPOINT /bin/bash
+ENTRYPOINT service ssh restart && bash

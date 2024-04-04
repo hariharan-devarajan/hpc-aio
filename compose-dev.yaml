@@ -1,7 +1,19 @@
 name: "hpc-aio"
 version: 0.0.1
 services:
-  app:
+  node1:
+    entrypoint:
+    - sleep
+    - infinity
+    build:
+      context: environment
+      target: build
+    init: true
+    volumes:
+    - type: bind
+      source: /var/run/docker.sock
+      target: /var/run/docker.sock
+  node2:
     entrypoint:
     - sleep
     - infinity

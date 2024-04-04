@@ -12,4 +12,6 @@ ENV SHARED=/mount/shared
 ENV SOFTWARE=${SHARED}/software
 ENV SPACK_DIR=${SOFTWARE}/spack
 ENV PROJECT_DIR ${SHARED}/code
+RUN sh ${SPACK_DIR}/share/spack/setup-env.sh
+ENV PATH="${PATH}:${SPACK_DIR}/bin"
 ENTRYPOINT /bin/bash

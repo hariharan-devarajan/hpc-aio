@@ -1,0 +1,15 @@
+services:
+  app:
+    entrypoint:
+    - sleep
+    - infinity
+    context: environment
+    target: build
+    init: true
+    volumes:
+    - type: bind
+      source: /var/run/docker.sock
+      target: /var/run/docker.sock
+    depends_on:
+      - setup
+      

@@ -6,7 +6,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends gi
     gcc g++ cmake build-essential glibc-source \
     pkgconf autoconf automake libtool libtool-bin make \
     openssh-client
-RUN apk add --no-cache openssh-client git
 RUN mkdir -p -m 0600 ~/.ssh && \
     ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 ENV SHARED=/mount/shared

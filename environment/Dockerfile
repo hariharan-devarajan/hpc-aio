@@ -1,4 +1,4 @@
-FROM docker/dev-environments-default:stable-1 as build
+FROM ubuntu:24.04 as build
 RUN apt update 
-
+RUN 
 ENTRYPOINT /bin/bash

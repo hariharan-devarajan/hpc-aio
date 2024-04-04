@@ -5,8 +5,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends gi
     openmpi-common libopenmpi-dev \
     gcc g++ cmake pkgconf 
 ENV SPACK_DIR /software/spack
-ENV PROJECT_DIR /code
-RUN ln -s /com.docker.devenvironments.code ${PROJECT_DIR}
+ENV PROJECT_DIR /com.docker.devenvironments.code
 RUN mkdir -p ${SPACK_DIR}
 RUN git clone https://github.com/spack/spack.git ${SPACK_DIR}
 RUN ${SPACK_DIR}/share/spack/setup-env.sh

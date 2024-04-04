@@ -14,12 +14,16 @@ RUN mkdir -p -m 0600 ~/.ssh && \
 # Setup SSH
 EXPOSE 22
 ENV USERNAME=haridev
-RUN useradd -rm -d /home/${USERNAME} -s /bin/bash -g root -G sudo -u 2000 ${USERNAME}
-RUN  echo '${USERNAME}:${USERNAME}' | chpasswd
-RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> \ /etc/sudoers
-RUN mkdir /home/${USERNAME}/.ssh
-RUN service ssh start
-CMD ["/usr/sbin/sshd","-D"]
+RUN mkdir /var/run/sshd
+RUN echo 'root:root' | chpasswd
+RUN useradd -m test
+RUN passwd -d test
+RUN sed -i'' -e's/^#PermitRootLogin prohibit-password$/PermitRootLogin yes/' /etc/ssh/sshd_config \
+        && sed -i'' -e's/^#PasswordAuthentication yes$/PasswordAuthentication yes/' /etc/ssh/sshd_config \
+        && sed -i'' -e's/^#PermitEmptyPasswords no$/PermitEmptyPasswords yes/' /etc/ssh/sshd_config \
+        && sed -i'' -e's/^UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
+EXPOSE 22
+CMD ["/usr/sbin/sshd", "-D"]
 
 # Master
 FROM base AS master

@@ -13,8 +13,6 @@ ENV SOFTWARE=${SHARED}/software
 ENV SPACK_DIR=${SOFTWARE}/spack
 ENV PROJECT_DIR ${SHARED}/code
 RUN mkdir -p ${SOFTWARE}
-RUN --mount=type=ssh \
-    git clone git@github.com:hariharan-devarajan/hpc-aio.git ${PROJECT_DIR}
 RUN mkdir -p ${SPACK_DIR}
 RUN git clone https://github.com/spack/spack.git ${SPACK_DIR}
 RUN sh ${SPACK_DIR}/share/spack/setup-env.sh

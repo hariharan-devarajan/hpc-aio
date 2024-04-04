@@ -13,10 +13,11 @@ RUN mkdir -p -m 0600 ~/.ssh && \
 
 # Setup SSH
 EXPOSE 22
-RUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo -u 1000 ubuntu
-RUN  echo 'ubuntu:ubuntu' | chpasswd
+ENV USERNAME=haridev
+RUN useradd -rm -d /home/${USERNAME} -s /bin/bash -g root -G sudo -u 1000 ${USERNAME}
+RUN  echo '${USERNAME}:${USERNAME}' | chpasswd
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> \ /etc/sudoers
-RUN mkdir /home/ubuntu/.ssh
+RUN mkdir /home/${USERNAME}/.ssh
 RUN service ssh start
 CMD ["/usr/sbin/sshd","-D"]
 

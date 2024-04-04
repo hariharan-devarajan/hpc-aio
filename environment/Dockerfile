@@ -14,7 +14,7 @@ RUN mkdir -p -m 0600 ~/.ssh && \
 # Setup SSH
 EXPOSE 22
 ENV USERNAME=haridev
-RUN useradd -rm -d /home/${USERNAME} -s /bin/bash -g root -G sudo -u 1000 ${USERNAME}
+RUN useradd -rm -d /home/${USERNAME} -s /bin/bash -g root -G sudo -u 2000 ${USERNAME}
 RUN  echo '${USERNAME}:${USERNAME}' | chpasswd
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> \ /etc/sudoers
 RUN mkdir /home/${USERNAME}/.ssh

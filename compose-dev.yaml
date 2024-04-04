@@ -1,12 +1,12 @@
 name: "hpc-aio"
 version: 0.0.1
 services:
-  node1: &app
+  node1:
     entrypoint:
-    - sleep
-    - infinity
+      - sleep
+      - infinity
     build:
-      context: environment
+      context: environment/master
       target: build
     init: true
     volumes:
@@ -15,7 +15,13 @@ services:
       - 80:80
       - 22:22
   node2:
-    <<: *app
+    entrypoint:
+      - sleep
+      - infinity
+    build:
+      context: environment/worker
+      target: build
+    init: true
     volumes:
       - shared:/mount/shared
     ports:

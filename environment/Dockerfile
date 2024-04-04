@@ -11,5 +11,5 @@ RUN mkdir -p ${SPACK_DIR}
 RUN git clone https://github.com/spack/spack.git ${SPACK_DIR}
 RUN ${SPACK_DIR}/share/spack/setup-env.sh
 ENV PATH="${PATH}:${SPACK_DIR}/bin"
-RUN spack env create -d ${PROJECT_DIR}/environment
+RUN spack env create -p ${PROJECT_DIR}/environment
 ENTRYPOINT /bin/bash

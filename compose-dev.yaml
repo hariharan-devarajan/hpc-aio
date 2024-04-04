@@ -10,7 +10,7 @@ services:
       target: build
     init: true
     volumes:
-    - shared:/mount/shared
+      - shared:/mount/shared
 node2:
     <<: &app
 volumes:

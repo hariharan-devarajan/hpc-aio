@@ -1,3 +1,5 @@
+name: "hpc-aio"
+version: 0.0.1
 services:
   app:
     entrypoint:

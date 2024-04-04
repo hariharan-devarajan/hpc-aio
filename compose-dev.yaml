@@ -2,6 +2,7 @@ name: "hpc-aio"
 version: 0.0.1
 services:
   node1:
+    hostname: node1
     entrypoint:
       - sleep
       - infinity
@@ -15,6 +16,7 @@ services:
       - 80:80
       - 22:22
   node2:
+    hostname: node2
     entrypoint:
       - sleep
       - infinity

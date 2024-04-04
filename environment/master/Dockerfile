@@ -5,9 +5,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends gi
     openmpi-common libopenmpi-dev \
     gcc g++ cmake build-essential glibc-source \
     pkgconf autoconf automake libtool libtool-bin make \
-    openssh-client
+    openssh-client openssh-server 
 RUN mkdir -p -m 0600 ~/.ssh && \
     ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+RUN service ssh restart
 ENV SHARED=/mount/shared
 ENV SOFTWARE=${SHARED}/software
 ENV SPACK_DIR=${SOFTWARE}/spack
@@ -19,4 +20,5 @@ RUN sh ${SPACK_DIR}/share/spack/setup-env.sh
 ENV PATH="${PATH}:${SPACK_DIR}/bin"
 RUN spack install --sh libuv@1.46.0 ucx@1.15.0
 RUN ls /mount
+EXPOSE 22
 ENTRYPOINT /bin/bash

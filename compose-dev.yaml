@@ -11,5 +11,9 @@ services:
     init: true
     volumes:
       - shared:/mount/shared
+  node2:
+    <<: *app
+    volumes:
+      - shared:/mount/shared
 volumes:
   shared:

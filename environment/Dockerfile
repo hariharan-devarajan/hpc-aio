@@ -4,9 +4,18 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends gi
     python3-pip openmpi-bin \
     openmpi-common libopenmpi-dev \
     gcc g++ cmake build-essential glibc-source \
-    pkgconf autoconf automake libtool libtool-bin make
-ENV SPACK_DIR /software/spack
-ENV PROJECT_DIR /code
+    pkgconf autoconf automake libtool libtool-bin make \
+    openssh-client
+RUN apk add --no-cache openssh-client git
+RUN mkdir -p -m 0600 ~/.ssh && \
+    ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+ENV SHARED=/mount/shared
+ENV SOFTWARE=${SHARED}/software
+ENV SPACK_DIR=${SOFTWARE}/spack
+ENV PROJECT_DIR ${SHARED}/code
+RUN mkdir -p ${SOFTWARE}
+RUN --mount=type=ssh \
+    git clone git@github.com:hariharan-devarajan/hpc-aio.git ${PROJECT_DIR}
 RUN mkdir -p ${SPACK_DIR}
 RUN git clone https://github.com/spack/spack.git ${SPACK_DIR}
 RUN sh ${SPACK_DIR}/share/spack/setup-env.sh

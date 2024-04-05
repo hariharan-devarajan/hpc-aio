@@ -18,3 +18,4 @@ spack env activate -p ${PROJECT_DIR}/environment
 
 echo Showing current state of packages
 spack find
+

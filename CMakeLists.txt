@@ -98,13 +98,17 @@ set_property(CACHE HPC_AIO_COMMUNICATION PROPERTY STRINGS UCX MPI)
 set(HPC_AIO_RUNTIME "LIBUV" CACHE STRING "Event driven runtime to use for HPC_AIO")
 set_property(CACHE HPC_AIO_COMMUNICATION PROPERTY STRINGS LIBUV)
 
-# Internal
+# Profiling and logging
 set(HPC_AIO_PROFILER "NONE" CACHE STRING "Profiler to use for HPC_AIO")
 set_property(CACHE HPC_AIO_PROFILER PROPERTY STRINGS DLIO_PROFILER NONE)
 set(HPC_AIO_LOGGER "NONE" CACHE STRING "Logger to use for HPC_AIO")
 set_property(CACHE HPC_AIO_LOGGER PROPERTY STRINGS CPP_LOGGER NONE)
 set(HPC_AIO_LOGGER_LEVEL "NONE" CACHE STRING "Logging level to use for HPC_AIO")
 set_property(CACHE HPC_AIO_LOGGER_LEVEL PROPERTY STRINGS DEBUG INFO WARN ERROR NONE)
+
+# Testing
+option (HPC_AIO_ENABLE_TESTING "Enable tests for HPC_AIO." OFF)
+option (HPC_AIO_ENABLE_POC_TESTING "Enable POC tests for HPC_AIO." OFF)
 
 
 #------------------------------------------------------------------------------
@@ -255,6 +259,10 @@ include_directories(${CMAKE_SOURCE_DIR}/include)  # public header
 add_subdirectory(src/hpc_aio)
 #cmake_policy(SET CMP0079 NEW) # In case that we need more control over the target building order
 
+if(HPC_AIO_ENABLE_TESTING)
+  enable_testing()
+  add_subdirectory(tests)
+endif()
 
 #-----------------------------------------------------------------------------
 # Configure the config.cmake file for the build directory
@@ -395,6 +403,8 @@ append_str_tf(_str
   HPC_AIO_LIBDIR_AS_LIB
   HPC_AIO_USE_CLANG_LIBCXX
   HPC_AIO_WARNINGS_AS_ERRORS
+  HPC_AIO_ENABLE_TESTING
+  HPC_AIO_ENABLE_POC_TESTING
 )
 string(APPEND _str
   "\n== End HPC_AIO Configuration Summary ==\n")

@@ -1,6 +1,6 @@
-add_executable(test main.cpp)
+add_executable(hpc_io main.cpp)
 install(
-        TARGETS test
+        TARGETS hpc_io
         EXPORT ${HPC_AIO_EXPORTED_TARGETS}
         LIBRARY DESTINATION ${HPC_AIO_INSTALL_LIB_DIR}
         ARCHIVE DESTINATION ${HPC_AIO_INSTALL_LIB_DIR}

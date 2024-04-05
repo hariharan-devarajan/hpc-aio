@@ -16,7 +16,12 @@ int total_processed = 0;
 void change_timer_cb(uv_async_s* async) {
   thread_comm_t *comm = (thread_comm_t *)async->data;
   printf("change_timer_cb for %d to %ld\n", comm->index, comm->timer_val);
-  uv_timer_set_repeat(comm->timer, comm->timer_val);
+  if (comm->timer_val > 0) {
+    uv_timer_set_repeat(comm->timer, comm->timer_val);
+  } else {
+    uv_close((uv_handle_t*) async, NULL);
+  }
+  
   // int rc = uv_timer_again(&comm->timer);
   // assert(rc == 0);
 }
@@ -41,11 +46,17 @@ void timer(uv_timer_t *handle) {
     uv_async_send(comm->async);
   }
   if (total_processed > 20) {
-    uv_timer_stop(handle);
+    uv_timer_stop(comm->timer);
+    comm->timer_val = 0;
+    comm->timer = handle;
+    printf("stoping async timer %d\n", comm->index);
+    comm->async->data = comm;
+    uv_async_send(comm->async);
   }
 }
 
 int main() {
+  setvbuf(stdout, NULL, _IONBF, 0); 
   thread_comm_t comm1, comm2;
   int r;
   memset(&comm1, 0, sizeof(comm1));
@@ -87,9 +98,7 @@ int main() {
   uv_loop_close(uv_default_loop());
   delete comm1.mutex;
   delete comm1.async;
-  delete comm1.timer;
   delete comm2.mutex;
   delete comm2.async;
-  delete comm2.timer;
   return 0;
 }

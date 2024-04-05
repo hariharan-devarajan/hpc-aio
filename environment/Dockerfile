@@ -7,7 +7,8 @@ RUN apt-get install -y --no-install-recommends git python3 \
     openmpi-common libopenmpi-dev \
     gcc g++ cmake build-essential glibc-source \
     pkgconf autoconf automake libtool libtool-bin make \
-    openssh-client openssh-server nmap iproute2
+    openssh-client openssh-server nmap iproute2 \
+    gdb clangd
 RUN mkdir -p -m 0600 ~/.ssh && \
     ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 

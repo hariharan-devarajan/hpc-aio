@@ -1,0 +1,6 @@
+add_executable(uv_work_queue_example work_queue.cpp)
+target_link_libraries(uv_work_queue_example ${LIBUV_LIBRARY})
+add_executable(uv_async_example async.cpp)
+target_link_libraries(uv_async_example ${LIBUV_LIBRARY})
+add_executable(uv_timer_example timer.cpp)
+target_link_libraries(uv_timer_example ${LIBUV_LIBRARY})

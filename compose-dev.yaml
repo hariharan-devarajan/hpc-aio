@@ -15,21 +15,21 @@ services:
     ports:
       - 80:80
       - 22:22
-  node2:
-    hostname: node2
-    entrypoint:
-      - sleep
-      - infinity
-    build:
-      context: environment
-      target: worker
-    init: true
-    volumes:
-      - shared:/mount/shared
-    ports:
-      - 80:80
-      - 22:22
-    depends_on:
-      - node1
+  # node2:
+  #   hostname: node2
+  #   entrypoint:
+  #     - sleep
+  #     - infinity
+  #   build:
+  #     context: environment
+  #     target: worker
+  #   init: true
+  #   volumes:
+  #     - shared:/mount/shared
+  #   ports:
+  #     - 80:80
+  #     - 22:22
+  #   depends_on:
+  #     - node1
 volumes:
   shared:

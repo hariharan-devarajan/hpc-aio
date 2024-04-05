@@ -6,8 +6,4 @@ ips=`cat ${SCRIPT_DIR}/hosts|awk -F" " '{print $1}'`
 for ssh_ip in $ips;
 do
 ssh-keyscan -H $ssh_ip >> ~/.ssh/known_hosts
-for host_ip in $ips;
-do
-ssh $ssh_ip "ssh-keyscan -H $host_ip >> ~/.ssh/known_hosts"
-done
 done

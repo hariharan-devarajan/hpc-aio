@@ -1,6 +1,6 @@
 FROM ubuntu:24.04 as base 
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt update 
+RUN apt-get update 
 # Install dependencies
 RUN apt-get install -y --no-install-recommends git python3 \
     python3.12-venv python3.12-dev openmpi-bin \

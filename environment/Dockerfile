@@ -2,10 +2,10 @@ FROM ubuntu:24.04 as base
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt update 
 # Install dependencies
-RUN apt-get install -y --no-install-recommends git python3.9 \
-    python3.9-venv python3.12-dev openmpi-bin \
+RUN apt-get install -y --no-install-recommends git python3 \
+    python3.12-venv python3.12-dev openmpi-bin \
     openmpi-common libopenmpi-dev \
-    gcc-10 g++-10 gfortran-10 cmake build-essential glibc-source \
+    gcc g++ gfortran cmake build-essential glibc-source \
     pkgconf autoconf automake libtool libtool-bin make \
     openssh-client openssh-server nmap iproute2 \
     gdb clangd clang-format vim
@@ -41,7 +41,7 @@ RUN mkdir -p ${SPACK_DIR}
 RUN git clone https://github.com/spack/spack.git ${SPACK_DIR}
 RUN sh ${SPACK_DIR}/share/spack/setup-env.sh
 ENV PATH="${PATH}:${SPACK_DIR}/bin"
-RUN spack install --sh libuv@1.46.0%gcc@10.5.0 ucx@1.15.0%gcc@10.5.0
+RUN spack install --sh libuv@1.46.0 ucx@1.15.0
 ENTRYPOINT service ssh restart && bash
 
 # worker

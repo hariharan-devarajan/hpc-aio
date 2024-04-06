@@ -19,3 +19,9 @@ source ${SPACK_DIR}/share/spack/setup-env.sh
 echo Setting up development environment
 spack env activate -p ${PROJECT_DIR}/environment
 spack install
+
+python3 -m venv /mount/shared/pip-env
+source /mount/shared/pip-env/bin/activate
+export CC=gcc-10
+export CXX=g++-10
+pip install dlio-profiler-py

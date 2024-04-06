@@ -5,88 +5,113 @@
 spack:
   # add package specs to the `specs` list
   specs:
-  - libuv@1.46.0
-  - ucx@1.15.0
-  - py-dlio-profiler-py@develop
+  - libuv@1.46.0%gcc@10.5.0
+  - ucx@1.15.0%gcc@10.5.0
   view: /mount/shared/install
   concretizer:
-    unify: false
+    unify: true
   packages:
-    findutils:
+    cmake:
       externals:
-      - spec: findutils@4.9.0
+      - spec: cmake@3.28.3
         prefix: /usr
-    pkgconf:
+        builable: False
+    gmake:
       externals:
-      - spec: pkgconf@1.8.1
+      - spec: gmake@4.3
         prefix: /usr
+        builable: False
     coreutils:
       externals:
       - spec: coreutils@9.4
         prefix: /usr
-    openssl:
-      externals:
-      - spec: openssl@3.0.10
-        prefix: /usr
-    sed:
-      externals:
-      - spec: sed@4.9
-        prefix: /usr
-    git:
-      externals:
-      - spec: git@2.43.0~tcltk
-        prefix: /usr
-    tar:
-      externals:
-      - spec: tar@1.35
-        prefix: /usr
-    perl:
-      externals:
-      - spec: perl@5.38.2~cpanm+opcode+open+shared+threads
-        prefix: /usr
+        builable: False
     m4:
       externals:
       - spec: m4@1.4.19
         prefix: /usr
+        builable: False
     automake:
       externals:
       - spec: automake@1.16.5
         prefix: /usr
-    binutils:
+        builable: False
+    tar:
       externals:
-      - spec: binutils@2.42
+      - spec: tar@1.35
+        prefix: /usr
+        builable: False
+    git:
+      externals:
+      - spec: git@2.43.0~tcltk
+        prefix: /usr
+        builable: False
+    python:
+      externals:
+      - spec: python@3.12.2+bz2+crypt+ctypes+dbm+lzma~nis+pyexpat~pythoncmd+readline+sqlite3+ssl~tkinter+uuid+zlib
+        prefix: /usr
+      - spec: python@3.12.2+bz2+crypt+ctypes+dbm+lzma+nis+pyexpat~pythoncmd+readline+sqlite3+ssl~tkinter+uuid+zlib
+        prefix: /usr
+        builable: False
+    sed:
+      externals:
+      - spec: sed@4.9
+        prefix: /usr
+        builable: False
+    autoconf:
+      externals:
+      - spec: autoconf@2.71
         prefix: /usr
     openssh:
       externals:
       - spec: openssh@9.6p1
         prefix: /usr
-    python:
+        builable: False
+    perl:
       externals:
-      - spec: python@3.12.2+bz2+crypt+ctypes+dbm+lzma+nis+pyexpat~pythoncmd+readline+sqlite3+ssl~tkinter+uuid+zlib
+      - spec: perl@5.38.2~cpanm+opcode+open+shared+threads
         prefix: /usr
-    diffutils:
-      externals:
-      - spec: diffutils@3.10
-        prefix: /usr
-    autoconf:
-      externals:
-      - spec: autoconf@2.71
-        prefix: /usr
-    cmake:
-      externals:
-      - spec: cmake@3.28.3
-        prefix: /usr
+        builable: False
     libtool:
       externals:
       - spec: libtool@2.4.7
         prefix: /usr
-    gmake:
+        builable: False
+    diffutils:
       externals:
-      - spec: gmake@4.3
+      - spec: diffutils@3.10
         prefix: /usr
+        builable: False
+    binutils:
+      externals:
+      - spec: binutils@2.42
+        prefix: /usr
+        builable: False
+    pkgconf:
+      externals:
+      - spec: pkgconf@1.8.1
+        prefix: /usr
+        builable: False
+    findutils:
+      externals:
+      - spec: findutils@4.9.0
+        prefix: /usr
+        builable: False
+    openssl:
+      externals:
+      - spec: openssl@3.0.13
+        prefix: /usr
+      - spec: openssl@3.0.10
+        prefix: /usr
+        builable: False
+    py-pip:
+      externals:
+      - spec: py-pip@23.0
+        prefix: /usr
+        builable: False
   compilers:
   - compiler:
-      spec: gcc@=10.5.0
+      spec: gcc@10.5.0
       paths:
         cc: /usr/bin/gcc-10
         cxx: /usr/bin/g++-10

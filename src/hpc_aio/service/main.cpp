@@ -23,7 +23,7 @@ void handle_sigint(int sig) {
     }
   }
 }
-void run_server(uv_timer_t* timer) {}
+void run_server(uv_timer_t* timer) { HPC_AIO_LOG_TRACE("run_server"); }
 
 int main(int argc, char* argv[]) {
   std::stringstream args;

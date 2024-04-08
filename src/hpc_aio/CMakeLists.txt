@@ -1,8 +1,5 @@
-add_executable(hpc_io main.cpp)
-install(
-        TARGETS hpc_io
-        EXPORT ${HPC_AIO_EXPORTED_TARGETS}
-        LIBRARY DESTINATION ${HPC_AIO_INSTALL_LIB_DIR}
-        ARCHIVE DESTINATION ${HPC_AIO_INSTALL_LIB_DIR}
-        RUNTIME DESTINATION ${HPC_AIO_INSTALL_BIN_DIR}
-)
+
+set(HPC_AIO_COMMON_SRC )
+set(HPC_AIO_COMMON_PRIVATE_HEADER common/logging.h)
+set(HPC_AIO_COMMON_PUBLIC_HEADER )
+add_subdirectory(service)

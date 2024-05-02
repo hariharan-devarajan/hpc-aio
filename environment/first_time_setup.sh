@@ -22,6 +22,4 @@ spack install
 
 python3 -m venv /mount/shared/pip-env
 source /mount/shared/pip-env/bin/activate
-export CC=gcc-10
-export CXX=g++-10
 pip install dlio-profiler-py

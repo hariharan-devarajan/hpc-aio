@@ -8,6 +8,8 @@ spack:
   - ucx@1.15.0
   - libuv@1.46.0
   - cpp-logger@0.0.3
+  - mochi-thallium~cereal@0.11.3 ^mercury@2.3.1+ucx
+  - boost@1.80.0
   view: true
   concretizer:
     unify: true

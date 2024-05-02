@@ -96,6 +96,10 @@ if (HPC_AIO_USE_CLANG_LIBCXX)
     set (GCC_TOOLCHAIN "")
 endif (HPC_AIO_USE_CLANG_LIBCXX)
 
+# Dependencies
+option(HPC_AIO_BUILD_DEPENDENCIES "Build Dependencies for HPC_AIO" OFF)
+option(HPC_AIO_INSTALL_DEPENDENCIES "Install dependencies for HPC_AIO" OFF)
+
 # Public
 set(HPC_AIO_COMMUNICATION "UCX" CACHE STRING "Communications to use for HPC_AIO")
 set_property(CACHE HPC_AIO_COMMUNICATION PROPERTY STRINGS UCX MPI)
@@ -199,9 +203,22 @@ endif ()
 #------------------------------------------------------------------------------
 # Dependencies
 #------------------------------------------------------------------------------
+# Install Dependencies
+# =============================================================================
+if (HPC_AIO_BUILD_DEPENDENCIES)
+  add_subdirectory(dependency)
+
+else()
 
 # Required Dependencies
 # =============================================================================
+find_package(hcl 1.0.0 REQUIRED)
+    if (${hcl_FOUND})
+        message(STATUS "[${PROJECT_NAME}] found hcl at ${HCL_INCLUDE_DIRS}")
+        include_directories(${HCL_INCLUDE_DIR})
+    else ()
+        message(FATAL_ERROR "-- [${PROJECT_NAME}] hcl is needed for ${PROJECT_NAME} build")
+    endif ()
 if(HPC_AIO_COMMUNICATION STREQUAL "UCX")
     set(HPC_AIO_COMMUNICATION_ENABLE_UCX 1)
     find_package(ucx 1.6 REQUIRED)
@@ -449,3 +466,4 @@ install(FILES "${CMAKE_BINARY_DIR}/hpc_aio_module.lua.install"
   RENAME "${HPC_AIO_MODULEFILE_NAME}"
   DESTINATION
   "${HPC_AIO_INSTALL_SYSCONFDIR}")
+endif()

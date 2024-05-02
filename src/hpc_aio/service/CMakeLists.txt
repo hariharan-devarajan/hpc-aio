@@ -1,5 +1,5 @@
-set(HPC_AIO_SERVICE_SRC main.cpp)
-set(HPC_AIO_SERVICE_PRIVATE_HEADER )
+set(HPC_AIO_SERVICE_SRC main.cpp server.cpp)
+set(HPC_AIO_SERVICE_PRIVATE_HEADER server.h)
 set(HPC_AIO_SERVICE_PUBLIC_HEADER )
 add_executable(hpc_io_service ${HPC_AIO_SERVICE_SRC} ${HPC_AIO_SERVICE_PUBLIC_HEADER} ${HPC_AIO_SERVICE_PRIVATE_HEADER})
 target_link_libraries(hpc_io_service ${LIBUV_LIBRARY} ${CPP_LOGGER_LIBRARIES})
